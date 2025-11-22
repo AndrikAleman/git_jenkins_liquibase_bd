@@ -1,8 +1,8 @@
 <databasechangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog">
-    <changeSet id="2" author="andrik">
+    <changeSet id="2" author="pepe">
         <insert tableName="person">
-            <column name="id" valueNumeric="1"/>
-            <column name="first_name" value="test-de-insert-002"/>
+            <column name="id" valueNumeric="100"/>
+            <column name="first_name" value="test-de-insert-002-23dfsd"/>
             <column name="email" value="test01@gmail.com"/>
         </insert>
     </changeSet>
