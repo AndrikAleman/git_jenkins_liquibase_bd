@@ -6,14 +6,7 @@ pipeline {
     }
 
     environment {
-        ${LIQUIBASE_HOME}/liquibase \
-        --logLevel=debug \
-        --url=jdbc:postgresql://localhost:5432/test01 \
-        --username=andrik \
-        --password=$PGPASSWORD
         PGPASSWORD = 'master'
-        --changelogFile=liquibase/changelog-master.xml
-        update
     }
 
     stages {
@@ -44,6 +37,13 @@ pipeline {
                 sh '''
                     liquibase \
                     --defaultFile=liquibase/liquibase.properties \
+                    ${LIQUIBASE_HOME}/liquibase \
+                    --logLevel=debug \
+                    --url=jdbc:postgresql://localhost:5432/test01 \
+                    --username=andrik \
+                    --password=$PGPASSWORD
+                    PGPASSWORD = 'master'
+                    --changelogFile=liquibase/changelog-master.xml
                     update
                 '''
             }
