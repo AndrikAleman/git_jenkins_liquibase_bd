@@ -1,5 +1,5 @@
 <databasechangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog">
-    <changeSet id="2" author="pepe">
+    <changeSet id="3" author="pepes">
         <createTable tableName="person">
             <column name="id" type="INT">
                 <constraints primaryKey="true" nullable="false"/>
