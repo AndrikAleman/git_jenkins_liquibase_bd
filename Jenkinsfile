@@ -11,51 +11,40 @@ pipeline {
 
     stages {
 
-        stages('Checkout') {
+        stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/AndrikAleman/git_jenkins_liquibase_bd.git'
             }
         }
 
-        stages('Debug Liquibase') {
+        stage('Validar archivos') {
             steps {
-                sh 'echo Workspace: $WORKSPACE'
-                sh 'ls -la'
-                sh 'pwd'
-                sh 'cat changelog-master.xml '
+                sh "echo 'Archivos en el workspace:'"
+                sh "ls -la"
+                sh "echo 'Archivos en liquibase:'"
+                sh "ls -la liquibase"
+                sh "echo 'Archivos en liquibase/changes:'"
+                sh "ls -la liquibase/changes"
             }
         }
 
-        stages('List JAR'){
+        stage('Actualizar Base') {
             steps {
-                sh 'ls -l liquibase/'
-            }
-        }
-
-        stages {
-            steps {
-                sh '''
+                sh """
                     liquibase \
-                    --defaultFile=liquibase/liquibase.properties \
-                    ${LIQUIBASE_HOME}/liquibase \
-                    --logLevel=debug \
-                    --url=jdbc:postgresql://localhost:5432/test01 \
-                    --username=andrik \
-                    --password=$PGPASSWORD
-                    PGPASSWORD = 'master'
-                    --changelogFile=liquibase/changelog-master.xml
-                    update
-                '''
+                        --defaultsFile=liquibase/liquibase.properties \
+                        update
+                """
             }
         }
     }
 
     post {
         success {
-            echo 'Liquibase update se ejecuto correctamente.'
+            echo 'Liquibase update se ejecutó correctamente.'
         }
         failure {
-            echo 'Liquibase update fallo, Revisar logs.'
+            echo 'Liquibase update falló, revisar logs.'
         }
     }
 }
