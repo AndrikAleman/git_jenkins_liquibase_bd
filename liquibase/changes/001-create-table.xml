@@ -1,4 +1,10 @@
-<databasechangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog">
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
     <changeSet id="3" author="pepes">
         <createTable tableName="person">
             <column name="id" type="INT">
@@ -10,4 +16,5 @@
             <column name="email" type="VARCHAR(100)"/>
         </createTable>
     </changeSet>
-</databasechangeLog>
+
+</databaseChangeLog>
