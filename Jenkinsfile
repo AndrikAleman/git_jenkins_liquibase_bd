@@ -1,12 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        liquibase 'liquibase-4.30'
-    }
-
     environment {
         PGPASSWORD = 'master'
+        LIQUIBASE_HOME = '/opt/liquibase'
     }
 
     stages {
@@ -19,11 +16,8 @@ pipeline {
 
         stage('Validar archivos') {
             steps {
-                sh "echo 'Archivos en el workspace:'"
                 sh "ls -la"
-                sh "echo 'Archivos en liquibase:'"
                 sh "ls -la liquibase"
-                sh "echo 'Archivos en liquibase/changes:'"
                 sh "ls -la liquibase/changes"
             }
         }
@@ -31,7 +25,7 @@ pipeline {
         stage('Actualizar Base') {
             steps {
                 sh """
-                    liquibase \
+                    ${LIQUIBASE_HOME}/liquibase \
                         --defaultsFile=liquibase/liquibase.properties \
                         update
                 """
