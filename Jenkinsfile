@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        liquibase 'liquibase-4.30'
+        org.jenkinsci.plugins.liquibase.install.LiquibaseInstallation 'liquibase-4.30'v
     }
 
     environment {
